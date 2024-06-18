@@ -5,7 +5,7 @@ user_height = gets.chomp.to_i
 puts "Какой у Вас вес?"
 user_weight = gets.chomp.to_i
 ideal_weight = (user_height - 110) * 1.15
-
+# Проверка версий
 if ideal_weight >= user_weight
   puts "#{user_name} у Вас идеальный вес"
 else

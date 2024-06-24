@@ -9,7 +9,7 @@ class Route
   attr_reader :list, :first, :last, :alllist
 
   def initialize(name, first, last)
-    @name = name
+    @name = name.name
     @first = first.name
     @last = last.name
     @list = []

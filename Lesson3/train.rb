@@ -59,7 +59,7 @@ class Train
   # Движение поезда вперед назад
   def prev
     if @number_station > 0
-      @station.out_train(self)
+      @station.out(self)
       @number_station -= 1
       tablotrain(@number_station)
     end
@@ -67,7 +67,7 @@ class Train
 
   def next
     if @number_station > @fullroute.length - 1
-      @station.out_train(self)
+      @station.out(self)
       @number_station += 1
       tablotrain(@number_station)
     end
@@ -76,7 +76,7 @@ class Train
   # табло предудющая текущая и следующая станция
   def tablotrain(number)
     @station = @fullroute[number]
-    @station.in_train(self)
+    @station.in(self)
     if number > 0
       @prevstation = @fullroute[number - 1]
     else

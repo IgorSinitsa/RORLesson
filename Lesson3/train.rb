@@ -14,7 +14,7 @@
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
   attr_reader :name, :numberofcarriage, :speed, :instation, :outstation, :fullroute
-  attr_reader :prevstation, :nextstation, :station, :typetrain
+  attr_reader :prevstation, :nextstation, :station, :type_train
 
   def initialize(name, typetrain, speed = nil, number = nil)
     @name = name
@@ -23,15 +23,15 @@ class Train
     @number_station = 0
     @maxspeed = speed
     @numberofcarriage = number
-    @typetrain = typetrain.name
+    @type_train = typetrain
     @numberofcarriage = typetrain.numberofcarriage if number.nil?
 
     @maxspeed = typetrain.speed if speed.nil?
   end
 
   # Управление скоростью
-  def upspeed
-    @speed = @maxspeed
+  def upspeed(speed)
+    @speed = speed if @speed < @maxspeed && @speed > 0
   end
 
   def stop
@@ -58,25 +58,32 @@ class Train
 
   # Движение поезда вперед назад
   def prev
-    @number_station -= 1 if @number_station > 0
-    tablotrain(@number_station)
+    if @number_station > 0
+      @station.out_train(self)
+      @number_station -= 1
+      tablotrain(@number_station)
+    end
   end
 
   def next
-    @number_station += 1 if @number_station > self.fullroute.length - 1
-    tablotrain(@number_station)
+    if @number_station > @fullroute.length - 1
+      @station.out_train(self)
+      @number_station += 1
+      tablotrain(@number_station)
+    end
   end
 
   # табло предудющая текущая и следующая станция
   def tablotrain(number)
-    @station = self.fullroute[number]
+    @station = @fullroute[number]
+    @station.in_train(self)
     if number > 0
-      @prevstation = self.fullroute[number - 1]
+      @prevstation = @fullroute[number - 1]
     else
       @prevstation = ""
     end
-    if @number < (self.fullroute.length -1)
-      @nextstation = self.fullroute[number + 1]
+    if @number < (@fullroute.length -1)
+      @nextstation = @fullroute[number + 1]
     else
       @nextstation = ""
     end

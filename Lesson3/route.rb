@@ -9,15 +9,15 @@ class Route
   attr_reader :list, :first, :last, :alllist
 
   def initialize(name, first, last)
-    @name = name.name
-    @first = first.name
-    @last = last.name
+    @name = name
+    @first = first
+    @last = last
     @list = []
     @alllist = []
   end
 
   def addstation(name)
-    @list << name.name
+    @list << name
     createalllist
   end
 

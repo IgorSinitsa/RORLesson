@@ -6,47 +6,44 @@
 # Может отправлять поезда (по одному за раз, при этом, поезд удаляется из списка поездов, находящихся на станции).
 
 class Station
-  attr_reader :name, :listtrain, :listtypetrain
+  attr_reader :name, :list_train, :list_type
 
   def initialize(name)
     @name = name
-    @listtrain = []
-    @listtypetrain = {}
-    # self.listtypetrain.default = [0, []] плохо работает с массивами по умолчанию(
+    @list_train = []
+    @list_type_train = {}
+    # self.listtype_train.default = [0, []] плохо работает с массивами по умолчанию(
   end
 
   # прием отправка поездов
   def in(train)
-    intrain(train) if train.station == self.station.name && if self.listtrain.index(train.name) == nil
-    end
+    in_train(train) if @list_train.include(train).nil?
+  end
 
-    def out(train)
-      outtrain(train) if self.listtrain.index(train.name) != nil
-    end
+  def out(train)
+    out_train(train) if @list_train.include(train) != nil
   end
 
   # обработка списков типов поездов
-  def intrain(train)
-    @listtrain << train.name
-    if @listtypetrain[train.typetrain].nil?
+  def in_train(train)
+    @listtrain << train
+    if @list_type[train.type_train].nil?
       t = [0, []]
     else
-      t = @listtypetrain[train.typetrain]
+      t = @list_type[train.type_train]
     end
-    puts t.inspect
+
     t[0] += 1
-    t[1] << train.name
-    @listtypetrain[train.typetrain] = t
-    puts t.inspect
+    t[1] << train
+    @list_type[train.type_train] = t
   end
 
-  def outtrain(train)
-    @listtrain.delete(train.name)
-    t = @listtypetrain[train.typetrain]
-    puts t.inspect
+  def out_train(train)
+    @listtrain.delete(train)
+    t = @list_type[train.type_train]
+
     t[0] -= 1
-    t[1].delete(train.name)
-    @listtypetrain[train.typetrain] = t
-    puts t.inspect
+    t[1].delete(train)
+    @list_type[train.type_train] = t
   end
 end

@@ -26,10 +26,12 @@ class TrainInterface
   end
 
   def run
-    puts "Управление поездом номер #{$trains[$train].name}" if $train != nil
+    puts "Управление поездом номер #{$train.name}" if !$train.nil?
     menu_show(@menu)
   end
-private
+
+  private
+
   def create_train
     menu = ["Грузовой", "Пассажирский"]
     i = menu_change(menu)
@@ -42,55 +44,71 @@ private
     end
 
     $trains << train
+    $train = train
     print_text("Создан поезд номер", name)
     interface_train
   end
 
   def change_train
-    $train = menu_change(array_name($trains))
+    $train = change($trains, "поезд", $train)
     interface_train
   end
 
   def change_route_train
-    route = menu_change(array_name($routes))
-    $trains[train].load_route($routes[route])
+    route = change($routes, "маршрут", $route)
+    $train.load_route(route) if !route.nil?
     interface_train
   end
 
   def forward_train
-    $trains[train].next
-    print_text("Поезд номер #{$trains[train].name} прибыл на станцию #{$trains[train].station.name}  ", "")
-
+    if !$train.nil?
+      $train.next if !$train.next_station.nil?
+      print_text("Поезд номер #{$train.name} прибыл на станцию #{$train.station.name}  ", "")
+    end
     interface_train
   end
 
   def back_train
-    $trains[train].prev
-    print_text("Поезд номер #{$trains[train].name} прибыл станцию #{$trains[train].station.name}  ", "")
+    if !$train.nil?
+      $trains[train].prev if !$train.prev_station.nil?
+      print_text("Поезд номер #{$train.name} прибыл на станцию #{$train.station.name}  ", "")
+    end
     interface_train
   end
 
   def carriage_attach
-    $trains[train].attach_carriage
-    print_text("Вагон прицеплен")
+    if !$train.nil?
+      $train.attach_carriage
+      print_text("Вагон прицеплен")
+    end
     interface_train
   end
 
   def carriage_unhook
-    $trains[train].unhook_carriage
-    print_text("Вагон отцеплен")
+    if !$train.nil?
+      if !$train.carriages.empty?
+        $train.unhook_carriage
+        print_text("Вагон отцеплен")
+      end
+    end
     interface_train
   end
 
   def speed_up
-    $trains[train].up_speed(20)
-    print_text("Скорость поезда #{$trains[train].speed}")
+    if !$train.nil?
+      puts "Ведите скорость поезда"
+      speed = gets.chomp.to_i
+      $train.up_speed(speed)
+      print_text("Скорость поезда #{$train.speed}")
+    end
     interface_train
   end
 
   def speed_stop
-    $trains[train].stop
-    print_text("Поезд стоит")
+    if !$train.nil?
+      $train.stop
+      print_text("Поезд остановлен")
+    end
     interface_train
   end
 end

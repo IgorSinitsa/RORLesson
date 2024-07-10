@@ -1,0 +1,2 @@
+интересные вызовы
+https://www.notonlycode.org/12-ways-to-call-a-method-in-ruby/

@@ -65,7 +65,7 @@ class Train
     end
   end
 
-  private
+  protected
 
   # табло предудющая текущая и следующая станция
   def route_train(number)
@@ -74,12 +74,12 @@ class Train
     if number > 0
       @prev_station = @fullroute[number - 1]
     else
-      @prev_station = ""
+      @prev_station = nil
     end
     if @number < (@fullroute.length - 1)
       @next_station = @fullroute[number + 1]
     else
-      @next_station = ""
+      @next_station = nil
     end
   end
 end

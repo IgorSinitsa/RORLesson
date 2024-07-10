@@ -18,10 +18,12 @@ class StationInterface
   end
 
   def run
-    puts "Управление станцией #{$stations[$station].name}" if $station != nil
+    puts "Управление станцией #{$station.name}" if !$station.nil?
     menu_show(@menu)
   end
-private
+
+  private
+
   def control_station
   end
 
@@ -30,30 +32,46 @@ private
     name = gets.chomp.to_str.upcase
     $stations << Station.new(name)
     print_text("Создана станция", name)
+    $station = $stations[-1]
     interface_station
   end
 
   def change_station
-    $station = menu_change(array_name($stations))
+    $station = change($stations, "станции", $station)
     interface_station
   end
 
   def out_train
-    i = menu_change(array_name($stations[$station].list_trains))
-    train = $stations[$station].list_trains[i]
-    train.next
-    print_text("С станции отправился поезд номер #{train.name}")
+    if !$station.nil?
+      train = change($station.list_trains, "поезд") if !$station.list_trains.nil?
+      if !train.nil?
+        train.next
+        print_text("С станции отправился поезд номер #{train.name}")
+      else
+        print_text("На станции нет поезда для отправки")
+      end
+    end
     interface_station
   end
 
   def show_train
-    show_array($stations[$station].list_trains, "На станцию прибыли поезда")
+    if !$station.nil?
+      if !$station.list_trains.empty?
+        show_array($station.list_trains, "На станцию прибыли поезда")
+      else
+        print_text("На станции нет поездов")
+      end
+    end
     interface_station
   end
 
   def show_type_train
-    show_array($stations[$station].list_type_trains[0], "На станцию прибыли пассажирские поезда")
-    show_array($stations[$station].list_type_trains[1], "На станцию прибыли грузовые поезда")
+    if !$station.nil?
+      show_array($station.list_type_trains[0],
+                 "На станцию прибыли пассажирские поезда") if !$station.list_type_trains[0].empty?
+      show_array($station.list_type_trains[1],
+                 "На станцию прибыли грузовые поезда") if !$station.list_type_trains[1].empty?
+    end
     interface_station
   end
 end

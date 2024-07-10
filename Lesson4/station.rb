@@ -20,7 +20,7 @@ class Station
   end
 
   def out(train)
-    out_train(train) if @list_trains.include(train) != nil
+    out_train(train) if !@list_trains.include(train).nil?
   end
 
   private
@@ -42,7 +42,7 @@ class Station
     i = 0 if train.class == PassengerTrain
     i = 1 if train.clas == CargoTrain
     type = list_type_train.fetch(i, [])
-    type.delete(train)
+    type.delete(train) if !type.empty?
     list_type_train[i] = type
   end
 end

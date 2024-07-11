@@ -61,11 +61,13 @@ def stop_prog
 end
 
 # # тестовый блок
-# $stations << Station.new("111111")
-# $stations <<  Station.new("222222")
-# $stations <<  Station.new("33333")
-# $stations <<  Station.new("44444")
-# $stations <<  Station.new("555555")
-
+# станции
+# $stations << Station.new("11111")
+# $stations << Station.new("22222")
+# $stations << Station.new("33333")
+# $stations << Station.new("44444")
+# $stations << Station.new("55555")
+# $routes << Route.new("Маршрут 1", $stations[0], $stations[4])
+# $routes << Route.new("Маршрут 2", $stations[1], $stations[3])
 menu_clear
 interface_main

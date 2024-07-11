@@ -67,10 +67,11 @@ class StationInterface
 
   def show_type_train
     if !$station.nil?
+      # && !$station.list_type_trains.nil?
       show_array($station.list_type_trains[0],
-                 "На станцию прибыли пассажирские поезда") if !$station.list_type_trains[0].empty?
+                 "На станцию прибыли пассажирские поезда") if !$station.list_type_trains[0].nil?
       show_array($station.list_type_trains[1],
-                 "На станцию прибыли грузовые поезда") if !$station.list_type_trains[1].empty?
+                 "На станцию прибыли грузовые поезда") if !$station.list_type_trains[1].nil?
     end
     interface_station
   end

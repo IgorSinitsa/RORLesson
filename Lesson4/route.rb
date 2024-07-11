@@ -17,21 +17,22 @@ class Route
     create_all_list
   end
 
-  def add_station(name)
-    @list << name
+  def add_station(obj)
+    @list << obj if !@list.include?(obj)
     create_all_list
   end
 
   # Вводим порядковый номер промежуточной станции для удаления
-  def delete_station(number)
-    @list.delete_at(number - 1)
+  def delete_station(obj)
+    @list.delete(obj) if @list.include?(obj)
     create_all_list
   end
-private
-  def create_all_list
-    @all_list = @list
-    @all_list << @last
-    @all_list.unshift(@first)
 
+  private
+
+  def create_all_list
+    @all_list = [@first]
+    @all_list.concat(@list) if !@list.empty?
+    @all_list << @last
   end
 end

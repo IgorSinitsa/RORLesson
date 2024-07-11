@@ -55,8 +55,10 @@ class TrainInterface
   end
 
   def change_route_train
-    route = change($routes, "маршрут", $route)
-    $train.load_route(route) if !route.nil?
+    if !$train.nil?
+      route = change($routes, "маршрут", $route)
+      $train.load_route(route.all_list) if !route.nil?
+    end
     interface_train
   end
 

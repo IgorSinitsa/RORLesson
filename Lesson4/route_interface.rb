@@ -70,7 +70,7 @@ class RouteInterface
   end
 
   def show_route
-    show_array($route.all_list, "Маршрут ", $route.name) if !route.nil?
+    show_array($route.all_list, "Маршрут ", $route.name) if !$route.nil?
     interface_route
   end
 end

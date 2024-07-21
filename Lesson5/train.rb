@@ -22,7 +22,7 @@ class Train
       run
     rescue TrainError => e
       puts e
-        run
+        retry
     end
 
     def change_train

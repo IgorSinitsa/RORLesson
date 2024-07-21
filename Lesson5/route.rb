@@ -14,9 +14,9 @@ class Route
         end
         run
       end
+
     rescue TrainError => e
       puts e
-    ensure
       run
     end
 

@@ -19,10 +19,10 @@ class Train
         func = menu_change(menu)
         func.call(name)
       end
+      run
     rescue TrainError => e
       puts e
-    ensure
-      run
+        run
     end
 
     def change_train

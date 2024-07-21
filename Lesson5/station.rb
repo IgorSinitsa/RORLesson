@@ -8,9 +8,9 @@ class Station
       if !name.empty?
         Station.new(name)
       end
+      run
     rescue TrainError => e
       puts e
-    ensure
       run
     end
 

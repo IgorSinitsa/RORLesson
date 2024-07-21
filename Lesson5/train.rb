@@ -3,6 +3,7 @@ class Train
   include Menu
   include Misc
   include Manufacturer
+  FORMAT_NUMBER_TRAIN = /^[a-z\d]{3}-?[a-z\d]{2}$/i
   class << self
     def find(number) # поиск поезда по номеру
       @list_obj[to_key number]
@@ -18,6 +19,9 @@ class Train
         func = menu_change(menu)
         func.call(name)
       end
+    rescue TrainError => e
+      puts e
+    ensure
       run
     end
 
@@ -127,7 +131,6 @@ class Train
 
   # Движение поезда вперед назад
   def prev
-
     if @number_station > 0
       @station.out(self)
       @number_station -= 1

@@ -11,17 +11,18 @@ require_relative "cargo_carriage"
 require_relative "passenger_carriage"
 require_relative "route"
 
-Station.new("Бологое")
-Station.new("Москва")
-Station.new("Санкт-Петербург")
-Station.new("Пенза")
-Station.new("Саратов")
-CargoTrain.new("123")
-CargoTrain.new("555бис")
-CargoTrain.new("123А")
-PassengerTrain.new("234A")
-PassengerTrain.new("666AD")
-PassengerTrain.new("909")
+# Station.new("Бологое")
+# Station.new("Москва")
+# Station.new("Санкт-Петербург")
+# Station.new("Пенза")
+# Station.new("Саратов")
+# CargoTrain.new("123-56")
+# CargoTrain.new("123-56")
+# CargoTrain.new("555бис")
+# CargoTrain.new("123А")
+# PassengerTrain.new("234A")
+# PassengerTrain.new("666AD")
+# PassengerTrain.new("909")
 
 menu = { "1": ["Создание станции", "create_station"],
          "2": ["Выбор станции", "change_station"],

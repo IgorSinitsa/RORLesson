@@ -1,5 +1,6 @@
 module Menu
   require "./modules.rb"
+  require "./validate.rb"
   def self.included(base)
     base.extend ClassMethodsMenu
     base.include InstanceMethodsMenu
@@ -103,8 +104,10 @@ module Menu
   # ---------------------------------------------------------------------------
   module InstanceMethodsMenu
     include Misc
+    include Validate
 
     def initialize(name, *arg)
+      validate!(name, self)
       self.class.list_obj[to_key name] = self
       self.class.obj = self
     end

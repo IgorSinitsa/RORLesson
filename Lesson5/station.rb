@@ -4,9 +4,13 @@ class Station
   class << self
     def create_station
       name = question("станции")
+
       if !name.empty?
         Station.new(name)
       end
+    rescue TrainError => e
+      puts e
+    ensure
       run
     end
 

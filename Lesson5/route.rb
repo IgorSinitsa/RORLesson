@@ -14,6 +14,10 @@ class Route
         end
         run
       end
+    rescue TrainError => e
+      puts e
+    ensure
+      run
     end
 
     def change_route
@@ -44,7 +48,7 @@ class Route
       run
     end
   end
-# ------------------------------------------------------------------------------------------------
+  # ------------------------------------------------------------------------------------------------
   attr_reader :name, :list, :all_list
 
   def initialize(name, first, last)

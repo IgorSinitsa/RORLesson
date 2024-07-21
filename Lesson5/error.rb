@@ -1,0 +1,3 @@
+class TrainError <  StandardError
+
+end

@@ -9,7 +9,7 @@ class Station
         Station.new(name)
       end
       run
-    rescue TrainError => e
+    rescue RzdError => e
       puts e
       retry
     end

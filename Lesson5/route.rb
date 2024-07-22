@@ -15,7 +15,7 @@ class Route
         run
       end
 
-    rescue TrainError => e
+    rescue RzdError => e
       puts e
       retry
     end

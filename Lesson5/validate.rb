@@ -1,15 +1,19 @@
 module Validate
   require "./error.rb"
 
-  def valid?(name, obj)
-    validate!(name, obj)
+  def valid?
+    validate!
     true
   rescue
     false
   end
 
-  def validate!(name, obj)
+  def validate!
+    name = self.name
+    obj = self
+
     raise RzdError, "Название не может быть пустым " if name.empty?
+
     if obj.class == Station
       raise RzdError, "Название #{name} больше, чем 20 символов " if name.length > 20
     elsif obj.class == Route

@@ -1,6 +1,7 @@
 class Station
   include InstanceCounter
   include Menu
+
   class << self
     def create_station
       name = question("станции")

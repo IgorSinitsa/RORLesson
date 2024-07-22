@@ -8,6 +8,7 @@ module Menu
 
   module ClassMethodsMenu
     include Misc
+
     attr_accessor :list_obj, :hash_menu, :obj
 
     def list_obj
@@ -107,7 +108,8 @@ module Menu
     include Validate
 
     def initialize(name, *arg)
-      validate!(name, self)
+      @name = name
+      validate!
       self.class.list_obj[to_key name] = self
       self.class.obj = self
     end

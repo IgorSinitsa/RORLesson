@@ -10,6 +10,9 @@ require_relative "passenger_train"
 require_relative "cargo_carriage"
 require_relative "passenger_carriage"
 require_relative "route"
+require_relative "validate"
+require_relative "error"
+
 
 # Station.new("Бологое")
 # Station.new("Москва")

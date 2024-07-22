@@ -4,6 +4,7 @@ class Train
   include Misc
   include Manufacturer
   FORMAT_NUMBER_TRAIN = /^[a-z\d]{3}-?[a-z\d]{2}$/i
+  TRAIN_EMPTY_EXIT = false
   class << self
     def find(number) # поиск поезда по номеру
       @list_obj[to_key number]
@@ -13,7 +14,7 @@ class Train
       create_passenger = lambda { |name| PassengerTrain.new(name) }
       create_cargo = lambda { |name| CargoTrain.new(name) }
       name = question("номер поезда")
-      if !name.empty?
+      if !(name.empty? and TRAIN_EMPTY_EXIT)
         menu = { "0": ["Грузовой", create_cargo],
                  "1": ["Пасажирский", create_passenger] }
         func = menu_change(menu)
@@ -22,7 +23,7 @@ class Train
       run
     rescue RzdError => e
       puts e
-        retry
+      retry
     end
 
     def change_train

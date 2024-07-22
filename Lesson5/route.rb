@@ -1,11 +1,12 @@
 class Route
   include InstanceCounter
   include Menu
+  ROUTE_EMPTY_EXIT = false
   class << self
     def create_route
       if Station.count > 1
         name = question("маршрут")
-        if !name.empty?
+        if !(name.empty? and ROUTE_EMPTY_EXIT)
           puts "Начало маршрута"
           first_station = change(Station.all)
           puts "Конец маршрута"

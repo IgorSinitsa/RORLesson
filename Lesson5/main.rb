@@ -20,12 +20,12 @@ require_relative "error"
 # Station.new("Пенза")
 # Station.new("Саратов")
 # CargoTrain.new("123-56")
-# CargoTrain.new("123-56")
-# CargoTrain.new("555бис")
-# CargoTrain.new("123А")
-# PassengerTrain.new("234A")
+# CargoTrain.new("123-AA")
+# CargoTrain.new("555BI")
+# CargoTrain.new("123AA")
+# PassengerTrain.new("234-FA")
 # PassengerTrain.new("666AD")
-# PassengerTrain.new("909")
+# PassengerTrain.new("909-09")
 
 menu = { "1": ["Создание станции", "create_station"],
          "2": ["Выбор станции", "change_station"],

@@ -1,12 +1,12 @@
 class Station
   include InstanceCounter
   include Menu
-
+  STATION_EMPTY_EXIT = false
   class << self
     def create_station
       name = question("станции")
 
-      if !name.empty?
+      if !(name.empty? and STATION_EMPTY_EXIT)
         Station.new(name)
       end
       run

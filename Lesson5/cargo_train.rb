@@ -1,8 +1,4 @@
-# require_relative 'train'
-# require_relative 'station'
-
 class CargoTrain < Train
-
   def initialize(name)
     super
     self.class.superclass.list_obj[name.to_s.to_sym] = self
@@ -10,7 +6,11 @@ class CargoTrain < Train
   end
 
   def attach_carriage
-    carriage = CargoCarriage.new
-    @carriages << carriage
+    name = question("вагона")
+    total = number_of("Какой обьем вагона").to_f
+    CargoCarriage.new(name, total, self)
+  rescue CarrigeError => e
+    puts e
+    retry
   end
 end

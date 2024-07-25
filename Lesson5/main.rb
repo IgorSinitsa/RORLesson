@@ -1,6 +1,7 @@
 require "./instance_counter.rb"
 require "./manufacturer.rb"
-
+require_relative "error"
+require_relative "validate"
 require "./menu.rb"
 require "./modules.rb"
 require "./station.rb"
@@ -10,22 +11,20 @@ require_relative "passenger_train"
 require_relative "cargo_carriage"
 require_relative "passenger_carriage"
 require_relative "route"
-require_relative "validate"
-require_relative "error"
 
 
-# Station.new("Бологое")
-# Station.new("Москва")
-# Station.new("Санкт-Петербург")
-# Station.new("Пенза")
-# Station.new("Саратов")
-# CargoTrain.new("123-56")
-# CargoTrain.new("123-AA")
-# CargoTrain.new("555BI")
-# CargoTrain.new("123AA")
-# PassengerTrain.new("234-FA")
-# PassengerTrain.new("666AD")
-# PassengerTrain.new("909-09")
+Station.new("Бологое")
+Station.new("Москва")
+Station.new("Санкт-Петербург")
+Station.new("Пенза")
+Station.new("Саратов")
+CargoTrain.new("123-56")
+CargoTrain.new("123-AA")
+CargoTrain.new("555BI")
+CargoTrain.new("123AA")
+PassengerTrain.new("234-FA")
+PassengerTrain.new("666AD")
+PassengerTrain.new("909-09")
 
 menu = { "1": ["Создание станции", "create_station"],
          "2": ["Выбор станции", "change_station"],
@@ -44,6 +43,7 @@ menu1 = { "1": ["Создание поезда", "create_train"],
           "8": ["Набрать скорость", "speed_up"],
           "9": ["Остановиться", "speed_stop"],
           "10": ["Информационное табло", "information_table"],
+          "11": ["Заполнить вагон", "fill_carriage"],
           "99": ["Основное меню", "interface_main"] }
 
           menu2 = { "1": ["Создание маршрута", "create_route"],

@@ -6,7 +6,12 @@ class PassengerTrain < Train
   end
 
   def attach_carriage
-    carriage = PassengerCarriage.new
-    @carriages << carriage
+    name = question("вагона")
+    total = number_of("Сколько пассажиров вмещает").to_i
+    PassengerCarriage.new(name, total, self)
+
+  rescue CarrigeError => e
+    puts e
+    retry
   end
 end

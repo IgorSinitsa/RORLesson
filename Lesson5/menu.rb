@@ -29,9 +29,19 @@ module Menu
       interface_station = lambda { Station.run }
       interface_route = lambda { Route.run }
       interface_exit = lambda { puts "Спасибо за игру" }
+      interface_info = lambda do
+
+          Train.list_obj.each_value do |train|
+            number_train(train)
+            puts "на станции #{train.station.name }"  unless train.station.nil?
+            info_carriages(train)
+          end
+          Route.interface_main
+      end
       menu = { "1": ["Управление поездом", interface_train],
                "2": ["Управление станцией", interface_station],
                "3": ["Маршруты", interface_route],
+               "4": ["Информация", interface_info],
                "99": ["Выход", interface_exit] }
       func = menu_change(menu)
       func.call
@@ -56,6 +66,10 @@ module Menu
       @hash_menu = menu
     end
 
+    def change!(menu)
+      puts menu
+      menu[menu_change(create_hash_menu(menu))]
+    end
     def change(menu)
       menu[menu_change(create_hash_menu(menu))]
     end
@@ -95,7 +109,7 @@ module Menu
     def create_hash_menu(hash)
       menu_hash = {}
       number = 0
-      hash.sort.each do |key, value|
+      hash.each do |key, value|
         menu_hash[to_key(number += 1)] = [value.name, key] if !value.nil?
       end
       menu_hash

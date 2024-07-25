@@ -22,10 +22,10 @@ class Station
 
     def out_train
       if !@obj.list_trains.empty?
-        list_train = @obj.list_trains
-        out_train = change(list_train)
+        # list_train = @obj.list_trains
+        out_train = change_array(@obj.list_trains)
         puts "С платформы 7 отправился поезд № #{out_train.name} #{out_train.full_route[0].name} - #{out_train.full_route[-1].name}"
-        obj.next
+        out_train.next
       end
       run
     end
@@ -43,20 +43,22 @@ class Station
     end
 
     def show_type_train
+      train_info = lambda do |trains|
+        trains.each do |train|
+          number_train(train)
+          info_carriages(train)
+        end
+      end
       if !@obj.nil?
         if !@obj.list_trains.empty?
           puts "На станцию прибыли поезда"
           if !@obj.list_type_trains[0].nil?
             puts "Грузовые"
-            @obj.list_type_trains[0].each { |obj|
-              puts "№ #{obj.name} #{obj.full_route[0].name} - #{obj.full_route[-1].name}"
-            }
+            train_info.call(@obj.list_type_trains[0])
           end
           if !@obj.list_type_trains[1].nil?
             puts "Пассажирские"
-            @obj.list_type_trains[1].each { |obj|
-              puts "№ #{obj.name} #{obj.full_route[0].name} - #{obj.full_route[-1].name}"
-            }
+            train_info.call(@obj.list_type_trains[1])
           end
         else
           puts "На станции нет поездов"

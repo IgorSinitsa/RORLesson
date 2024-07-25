@@ -66,7 +66,8 @@ class Train
 
     def carriage_unhook
       if !@obj.nil?
-        @obj.unhook_carriage
+        # carriage = Menu::change(@carriages)
+        @obj.unhook_carriage(change(@obj.carriages).name)
         puts "Всего вагонов #{@obj.carriages.count}"
       end
       run
@@ -90,7 +91,39 @@ class Train
     end
 
     def information_table
-      info_train(@obj.station, @obj.next_station, @obj.prev_station) if !@obj.nil?
+      unless @obj.nil?
+        info_train(@obj.station, @obj.next_station, @obj.prev_station)
+        info_carriages(@obj)
+        run
+      end
+    end
+
+    def fill_carriage
+      unless @obj.nil?
+        unless @obj.carriages.empty?
+          info_carriages(@obj)
+          carriage = change(@obj.carriages)
+
+          if carriage.free_quantity > 0
+            if @obj.class == CargoTrain
+              text = "обьем"
+              volume = number_of("Введите количество")
+              puts volume
+              puts "Мало места" unless carriage.volume_in(volume.to_f)
+            else
+              text = "мест"
+              puts "Мало места" unless carriage.passenger_in
+            end
+          else
+            puts "Мало места"
+          end
+          puts "Номер вагона #{carriage.name} #{text}: #{carriage.total} - занято #{carriage.count}"
+        else
+          puts "вагонов нет"
+        end
+      else
+        puts "вагонов нет"
+      end
       run
     end
   end
@@ -98,7 +131,7 @@ class Train
   attr_reader :name, :carriages, :speed, :full_route
   attr_reader :prev_station, :next_station, :station
 
-  def initialize(name, speed = 80, carriages = [])
+  def initialize(name, speed = 80, carriages = {})
     super
     @name = name
     @full_route = []
@@ -120,8 +153,8 @@ class Train
 
   # Прицеп и отцеп вагонов
 
-  def unhook_carriage
-    @carriages.delete_at(-1) if @carriages.count > 0
+  def unhook_carriage(name)
+    @carriages.delete(to_key name)
   end
 
   # загрузка маршрута
@@ -152,8 +185,7 @@ class Train
   # табло предудющая текущая и следующая станция
   def route_train(number)
     @station = @full_route[number]
-    puts @station
-    gets
+
     @station.in(self)
     if number > 0
       @prev_station = @full_route[number - 1]

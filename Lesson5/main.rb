@@ -8,10 +8,10 @@ require "./station.rb"
 require "./train.rb"
 require_relative "cargo_train"
 require_relative "passenger_train"
+require_relative "carriage"
 require_relative "cargo_carriage"
 require_relative "passenger_carriage"
 require_relative "route"
-
 
 Station.new("Бологое")
 Station.new("Москва")
@@ -46,7 +46,7 @@ menu1 = { "1": ["Создание поезда", "create_train"],
           "11": ["Заполнить вагон", "fill_carriage"],
           "99": ["Основное меню", "interface_main"] }
 
-          menu2 = { "1": ["Создание маршрута", "create_route"],
+menu2 = { "1": ["Создание маршрута", "create_route"],
           "2": ["Выбор маршрута", "change_route"],
           "3": ["Добавить промежуточную станцию", "add_station_route"],
           "4": ["Удалить промежуточную станцию", "delete_station_route"],
@@ -55,6 +55,5 @@ menu1 = { "1": ["Создание поезда", "create_train"],
 Station.load_menu(menu)
 Train.load_menu(menu1)
 Route.load_menu(menu2)
-
 
 Route.interface_main

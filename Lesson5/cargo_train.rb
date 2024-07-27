@@ -1,4 +1,6 @@
-class CargoTrain < Train
+# frozen_string_literal: true
+
+class CargoTrain < Train # rubocop:disable Style/Documentation
   def initialize(name)
     super
     self.class.superclass.list_obj[name.to_s.to_sym] = self

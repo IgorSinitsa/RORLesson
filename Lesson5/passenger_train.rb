@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PassengerTrain < Train
   def initialize(name)
     super
@@ -6,10 +8,9 @@ class PassengerTrain < Train
   end
 
   def attach_carriage
-    name = question("вагона")
-    total = number_of("Сколько пассажиров вмещает").to_i
+    name = question('вагона')
+    total = number_of('Сколько пассажиров вмещает').to_i
     PassengerCarriage.new(name, total, self)
-
   rescue CarrigeError => e
     puts e
     retry

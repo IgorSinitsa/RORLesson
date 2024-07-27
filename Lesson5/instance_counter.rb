@@ -7,15 +7,12 @@ module InstanceCounter
   module ClassMethods
     attr_accessor :instances
 
-    def instances
+    def instances # rubocop:disable Lint/DuplicateMethods
       @instances ||= 0
     end
-
-
   end
 
   module InstanceMethods
-
     private
 
     def register_instance

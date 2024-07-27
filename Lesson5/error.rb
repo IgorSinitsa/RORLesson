@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class RzdError < StandardError
-  attr_accessor :obj
 end
 
 class CarrigeError < StandardError

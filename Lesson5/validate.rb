@@ -1,28 +1,24 @@
 module Validate
-  require "./error.rb"
+  require "./error"
 
   def valid?
     validate!
     true
-  rescue
+  rescue StandardError
     false
   end
 
   def validate!(*args)
     name = self.name
-    if args[0].nil?
-      obj = self
-    else
-      obj = args[0]
-    end
+    obj = args[0] || self
 
     raise RzdError, "Название не может быть пустым " if name.empty?
 
-    if obj.class == Station
+    if obj.instance_of?(Station)
       raise RzdError, "Название #{name} больше, чем 20 символов " if name.length > 20
-    elsif obj.class == Route
+    elsif obj.instance_of?(Route)
       raise RzdError, "Название #{name} больше, чем 10 символов " if name.length > 10
-    elsif obj.class.superclass == Train
+    elsif obj.is_a?(Train)
       raise RzdError, "Номер поезда #{name} не соответствует формату XXX-XX " if name !~ Train::FORMAT_NUMBER_TRAIN
     end
     raise RzdError, "Такое название #{name} уже используется " if obj.class.list_obj.key? to_key(name)

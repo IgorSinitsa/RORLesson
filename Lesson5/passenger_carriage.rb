@@ -1,4 +1,5 @@
-class PassengerCarriage < Carriage
+class PassengerCarriage < Train
+
   def initialize(name, total, train)
     @count = 0
     super

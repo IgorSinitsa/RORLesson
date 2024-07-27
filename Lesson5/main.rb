@@ -1,11 +1,13 @@
-require "./instance_counter.rb"
-require "./manufacturer.rb"
+# frozen_string_literal: true
+
+require "./instance_counter"
+require "./manufacturer"
 require_relative "error"
 require_relative "validate"
-require "./menu.rb"
-require "./modules.rb"
-require "./station.rb"
-require "./train.rb"
+require "./menu"
+require "./modules"
+require "./station"
+require "./train"
 require_relative "cargo_train"
 require_relative "passenger_train"
 require_relative "carriage"
@@ -41,7 +43,7 @@ menu1 = { "1": ["Создание поезда", "create_train"],
           "6": ["Прицепить вагон", "carriage_attach"],
           "7": ["Отцепить вагон", "carriage_unhook"],
           "8": ["Набрать скорость", "speed_up"],
-          "9": ["Остановиться", "speed_stop"],
+          "9": %w[Остановиться speed_stop],
           "10": ["Информационное табло", "information_table"],
           "11": ["Заполнить вагон", "fill_carriage"],
           "99": ["Основное меню", "interface_main"] }

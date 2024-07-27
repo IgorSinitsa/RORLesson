@@ -1,6 +1,6 @@
 module Menu
-  require "./modules.rb"
-  require "./validate.rb"
+  require './modules'
+  require './validate'
   def self.included(base)
     base.extend ClassMethodsMenu
     base.include InstanceMethodsMenu
@@ -11,7 +11,7 @@ module Menu
 
     attr_accessor :list_obj, :hash_menu, :obj
 
-    def list_obj
+    def list_obj # rubocop:disable Lint/DuplicateMethods
       @list_obj ||= {}
     end
 
@@ -20,29 +20,29 @@ module Menu
     end
 
     def run
-      puts "Вы управляете #{@obj.name}" if !@obj.nil?
+      puts "Вы управляете #{@obj.name}" unless @obj.nil?
       method(menu_change).call
     end
 
-    def interface_main # основное меню
-      interface_train = lambda { Train.run }
-      interface_station = lambda { Station.run }
-      interface_route = lambda { Route.run }
-      interface_exit = lambda { puts "Спасибо за игру" }
-      interface_info = lambda do
-
-          Train.list_obj.each_value do |train|
-            number_train(train)
-            puts "на станции #{train.station.name }"  unless train.station.nil?
-            info_carriages(train)
-          end
-          Route.interface_main
+    # основное меню
+    def interface_main
+      interface_train = -> { Train.run }
+      interface_station = -> { Station.run }
+      interface_route = -> { Route.run }
+      interface_exit = -> { puts 'Спасибо за игру' }
+      interface_info = -> do
+        Train.list_obj.each_value do |train|
+          number_train(train)
+          puts "на станции #{train.station.name}" unless train.station.nil?
+          info_carriages(train)
+        end
+        Route.interface_main
       end
-      menu = { "1": ["Управление поездом", interface_train],
-               "2": ["Управление станцией", interface_station],
-               "3": ["Маршруты", interface_route],
-               "4": ["Информация", interface_info],
-               "99": ["Выход", interface_exit] }
+      menu = { "1": ['Управление поездом', interface_train],
+               "2": ['Управление станцией', interface_station],
+               "3": ['Маршруты', interface_route],
+               "4": ['Информация', interface_info],
+               "99": ['Выход', interface_exit] }
       func = menu_change(menu)
       func.call
     end
@@ -70,6 +70,7 @@ module Menu
       puts menu
       menu[menu_change(create_hash_menu(menu))]
     end
+
     def change(menu)
       menu[menu_change(create_hash_menu(menu))]
     end
@@ -79,28 +80,26 @@ module Menu
     end
 
     def menu_change(hash_menu = @hash_menu)
-      if !hash_menu.nil?
-        func = []
+      return if hash_menu.nil?
 
-        puts "Выбирете"
-        hash_menu.sort.each { |number, text| puts "#{number}: #{text[0]}" }
-        loop do
-          print ">"
-          sym = to_key(gets.chomp)
-          if !hash_menu[sym].nil?
-            func = hash_menu[sym]
-            break
-          end
+      func = []
+      puts 'Выбирете'
+      hash_menu.each { |number, text| puts "#{number}: #{text[0]}" }
+      loop do
+        print '>'
+        sym = to_key(gets.chomp)
+        unless hash_menu[sym].nil?
+          func = hash_menu[sym]
+          break
         end
-        func[1]
       end
+      func[1]
     end
 
     def create_array_menu(menu)
       menu_hash = {}
       number = 0
       menu.each do |value|
-        # name = value.name
         menu_hash[to_key(number += 1)] = [value.name, number - 1]
       end
       menu_hash
@@ -110,7 +109,7 @@ module Menu
       menu_hash = {}
       number = 0
       hash.each do |key, value|
-        menu_hash[to_key(number += 1)] = [value.name, key] if !value.nil?
+        menu_hash[to_key(number += 1)] = [value.name, key] unless value.nil?
       end
       menu_hash
     end
@@ -121,7 +120,7 @@ module Menu
     include Misc
     include Validate
 
-    def initialize(name, *arg)
+    def initialize(name, *_arg)
       @name = name
       validate!
       self.class.list_obj[to_key name] = self

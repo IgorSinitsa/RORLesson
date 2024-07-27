@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CargoCarriage < Carriage
   def initialize(name, total, train)
     @count = 0.0

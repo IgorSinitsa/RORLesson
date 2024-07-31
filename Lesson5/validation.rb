@@ -41,6 +41,7 @@ module Validation
           hash_name.each_value do |func|
             method(func[0]).call(value, func[1])
           end
+          self.instance_variable_set("@#{name}", value )
         end
       else
         hash_name = hash_full[name]

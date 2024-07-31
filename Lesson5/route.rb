@@ -1,6 +1,7 @@
 class Route
   include InstanceCounter
   include Menu
+  include Validation
   ROUTE_EMPTY_EXIT = false
   class << self
     def create_route
@@ -51,6 +52,9 @@ class Route
   end
   # ------------------------------------------------------------------------------------------------
   attr_reader :name, :list, :all_list
+  validate :name, :presence
+  validate :name, :type, String
+  validate :name, :length, 10
 
   def initialize(name, first, last)
     super

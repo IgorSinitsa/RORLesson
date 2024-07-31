@@ -1,6 +1,7 @@
 class Station
   include InstanceCounter
   include Menu
+  include Validation
   STATION_EMPTY_EXIT = false
   class << self
     def create_station
@@ -68,6 +69,9 @@ class Station
     end
   end
   attr_reader :name, :list_trains, :list_type_trains
+  validate :name, :presence
+  validate :name, :type, String
+  validate :name, :length, 20
 
   def initialize(name)
     super

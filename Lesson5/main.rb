@@ -3,7 +3,8 @@
 require "./instance_counter"
 require "./manufacturer"
 require_relative "error"
-require_relative "validate"
+# require_relative "validate"
+require_relative "validation"
 require "./menu"
 require "./modules"
 require "./station"
@@ -54,6 +55,7 @@ menu2 = { "1": ["Создание маршрута", "create_route"],
           "4": ["Удалить промежуточную станцию", "delete_station_route"],
           "5": ["Показать маршрут", "show_route"],
           "99": ["Основное меню", "interface_main"] }
+
 Station.load_menu(menu)
 Train.load_menu(menu1)
 Route.load_menu(menu2)

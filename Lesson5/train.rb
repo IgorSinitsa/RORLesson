@@ -3,6 +3,7 @@ class Train
   include Menu
   include Misc
   include Manufacturer
+  include Validation
   FORMAT_NUMBER_TRAIN = /^[a-z\d]{3}-?[a-z\d]{2}$/i
   TRAIN_EMPTY_EXIT = false
   class << self
@@ -130,6 +131,9 @@ class Train
   # ------------------------------------------------------------------------------------------------
   attr_reader :name, :carriages, :speed, :full_route
   attr_reader :prev_station, :next_station, :station
+  validate :name, :presence
+  validate :name, :format, /^[a-z\d]{3}-?[a-z\d]{2}$/i
+  validate :name, :type, String
 
   def initialize(name, speed = 80, carriages = {})
     super

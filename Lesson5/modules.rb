@@ -1,5 +1,5 @@
 module Misc
-  include Validate
+  # include Validate
 
   def question(text)
     puts "Введите название #{text}"

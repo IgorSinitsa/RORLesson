@@ -6,8 +6,7 @@ module Validation
 
   module IncludeMethodsValidates
     def _presence(*args)
-      raise RzdError, "Значение не может быть пустым " if args[0].nil?
-      raise RzdError, "Значение не может быть пустым " if args[0].to_s.empty?
+      raise RzdError, "Значение не может быть пустым " if args[0].nil? || args[0].to_s.strip.empty?
     end
 
     def _format(*args)
@@ -17,6 +16,7 @@ module Validation
     def _type(*args)
       raise RzdError, "Значание должно быть #{args[1]} " unless args[0].is_a?(args[1])
     end
+
     def _length(*args)
       raise RzdError, "Значание должно быть  не длиннее #{args[1]} символов " if args[0].to_s.length > (args[1])
     end
@@ -28,7 +28,7 @@ module Validation
         presence: "_presence",
         type: "_type",
         format: "_format",
-        length: "_length"
+        length: "_length",
       }
 
       hash_full = class_variable_defined?("@@_var_validate") ? class_variable_get("@@_var_validate") : {}
@@ -41,7 +41,7 @@ module Validation
           hash_name.each_value do |func|
             method(func[0]).call(value, func[1])
           end
-          self.instance_variable_set("@#{name}", value )
+          self.instance_variable_set("@#{name}", value)
         end
       else
         hash_name = hash_full[name]
@@ -63,6 +63,7 @@ module Validation
       end
     end
   end
+
   def valid?
     validate!
     true

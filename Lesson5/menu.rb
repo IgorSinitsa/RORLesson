@@ -1,6 +1,6 @@
 module Menu
-  require './modules'
-  require './validate'
+  require "./modules"
+  require "./validate"
   def self.included(base)
     base.extend ClassMethodsMenu
     base.include InstanceMethodsMenu
@@ -29,7 +29,7 @@ module Menu
       interface_train = -> { Train.run }
       interface_station = -> { Station.run }
       interface_route = -> { Route.run }
-      interface_exit = -> { puts 'Спасибо за игру' }
+      interface_exit = -> { puts "Спасибо за игру" }
       interface_info = -> do
         Train.list_obj.each_value do |train|
           number_train(train)
@@ -38,11 +38,11 @@ module Menu
         end
         Route.interface_main
       end
-      menu = { "1": ['Управление поездом', interface_train],
-               "2": ['Управление станцией', interface_station],
-               "3": ['Маршруты', interface_route],
-               "4": ['Информация', interface_info],
-               "99": ['Выход', interface_exit] }
+      menu = { "1": ["Управление поездом", interface_train],
+               "2": ["Управление станцией", interface_station],
+               "3": ["Маршруты", interface_route],
+               "4": ["Информация", interface_info],
+               "99": ["Выход", interface_exit] }
       func = menu_change(menu)
       func.call
     end
@@ -83,10 +83,10 @@ module Menu
       return if hash_menu.nil?
 
       func = []
-      puts 'Выбирете'
+      puts "Выбирете"
       hash_menu.each { |number, text| puts "#{number}: #{text[0]}" }
       loop do
-        print '>'
+        print ">"
         sym = to_key(gets.chomp)
         unless hash_menu[sym].nil?
           func = hash_menu[sym]
@@ -120,8 +120,7 @@ module Menu
     include Misc
     include Validate
 
-    def initialize(name, *_arg)
-      @name = name
+    def initialize(name, *args)
       validate!
       self.class.list_obj[to_key name] = self
       self.class.obj = self

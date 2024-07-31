@@ -54,7 +54,7 @@ module Validation
   end
 
   def validate!
-    if self.class.class_variable_defined?('@@_var_validate')
+    if self.class.class_variable_defined?('@@_var_validate') # rubocop:disable Style/GuardClause
       var_validate = self.class.class_variable_get('@@_var_validate')
       var_check = instance_variables
       var_validate.each do |key, value|

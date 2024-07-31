@@ -18,6 +18,10 @@ class Test
     validate!
   end
 
+  def name
+    @name
+  end
+
   #   puts @@_var_validate
   #   puts "-------------------------------"
   #   # puts instans_variable_get("@@_var_validate")
@@ -26,6 +30,8 @@ class Test
 
   # end
   # puts "dhf-xx".inspect
-  n = Test.new("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+  n = Test.new("xxxxxxx")
+  puts n.name
   n.name = "dhf-xx"
+  puts n.name
 end

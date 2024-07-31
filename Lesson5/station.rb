@@ -74,10 +74,10 @@ class Station
   validate :name, :length, 20
 
   def initialize(name)
-    super
     @name = name
     @list_trains = []
     @list_type_trains = {}
+    super
     register_instance
   end
 

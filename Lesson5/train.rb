@@ -136,13 +136,13 @@ class Train
   validate :name, :type, String
 
   def initialize(name, speed = 80, carriages = {})
-    super
     @name = name
     @full_route = []
     @speed = 0
     @number_station = 0
     @maxspeed = speed
     @carriages = carriages
+    super
     register_instance
   end
 

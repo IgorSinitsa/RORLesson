@@ -57,12 +57,12 @@ class Route
   validate :name, :length, 10
 
   def initialize(name, first, last)
-    super
     @name = name
     @first = first
     @last = last
     @list = []
     @all_list = []
+    super
     create_all_list
   end
 
